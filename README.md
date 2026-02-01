@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غلاف واجب جامعي - ريال مدريد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a1a3a 0%, #1a3a6a 30%, #0d1f3d 70%, #0a1a3a 100%);
+            font-family: 'Tajawal', Arial, sans-serif;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        /* شعار ريال مدريد كخلفية شفافة */
+        .bg-logo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vmin;
+            height: 80vmin;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* تأثير الأضواء */
+        .lights-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 15% 15%, rgba(255, 215, 0, 0.15) 0%, transparent 35%),
+                radial-gradient(ellipse at 85% 85%, rgba(255, 215, 0, 0.1) 0%, transparent 35%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* الصفحة الرئيسية */
+        .main-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-card {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(15px);
+            padding: 50px 40px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 
+                0 30px 100px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 0 80px rgba(255, 215, 0, 0.08);
+            position: relative;
+            border: 4px solid transparent;
+            background-clip: padding-box;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .cover-card::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(135deg, #FFD700, #C0A000, #FFD700, #C0A000, #FFD700);
+            border-radius: 29px;
+            z-index: -1;
+        }
+
+        /* زخرفة الزوايا */
+        .corner {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 4px solid #FFD700;
+        }
+        .corner.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; border-top-right-radius: 20px; }
+        .corner.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; border-top-left-radius: 20px; }
+        .corner.br { bottom: 20px; right: 20px; border-left: none; border-top: none; border-bottom-right-radius: 20px; }
+        .corner.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; border-bottom-left-radius: 20px; }
+
+        .bismillah {
+            font-size: 36px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1a3a6a, #2a5a9a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .bismillah::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #FFD700, #C0A000, #FFD700, transparent);
+            border-radius: 2px;
+        }
+
+        .info-box {
+            margin: 20px 0;
+            padding: 18px 25px;
+            background: linear-gradient(135deg, rgba(26, 58, 106, 0.06), rgba(255, 215, 0, 0.06));
+            border-radius: 15px;
+            border-right: 5px solid #FFD700;
+            transition: all 0.4s ease;
+        }
+
+        .info-box:hover {
+            transform: translateX(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, rgba(26, 58, 106, 0.1), rgba(255, 215, 0, 0.1));
+        }
+
+        .info-label {
+            font-size: 15px;
+            color: #777;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 24px;
+            color: #1a3a6a;
+            font-weight: 800;
+        }
+
+        .enter-btn {
+            margin-top: 35px;
+            padding: 18px 60px;
+            font-size: 22px;
+            font-weight: 900;
+            font-family: 'Tajawal', Arial, sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #FFD700, #C0A000, #FFD700);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 
+                0 10px 40px rgba(255, 215, 0, 0.4),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .enter-btn:hover::before {
+            left: 100%;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(255, 215, 0, 0.5),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .enter-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* صفحة البطولات */
+        .trophies-page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .trophies-page.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .trophies-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .trophies-header img {
+            width: 120px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .trophies-title {
+            font-size: 42px;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .trophies-subtitle {
+            font-size: 24px;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .trophies-count {
+            font-size: 80px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #fff, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+            text-shadow: none;
+        }
+
+        .trophies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .trophy-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, #C0A000, #FFD700);
+        }
+
+        .trophy-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .trophy-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: #FFD700;
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .trophy-year {
+            font-size: 32px;
+            font-weight: 900;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .trophy-season {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .trophy-final {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+        }
+
+        .trophy-final strong {
+            color: #FFD700;
+        }
+
+        .back-btn {
+            display: block;
+            margin: 50px auto 0;
+            padding: 15px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Tajawal', Arial, sans-serif;
+            color: #1a3a6a;
+            background: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            background: #FFD700;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover-card { padding: 35px 25px; }
+            .bismillah { font-size: 28px; }
+            .info-value { font-size: 20px; }
+            .enter-btn { padding: 15px 45px; font-size: 20px; }
+            .trophies-title { font-size: 32px; }
+            .trophies-count { font-size: 60px; }
+            .trophies-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- شعار ريال مدريد كخلفية -->
+    <div class="bg-logo">
+        <img src="https://www.aljazeera.net/wp-content/uploads/2017/02/64522494-444f-467d-9bb1-a7761ecb8016.jpeg?resize=686%2C513&quality=80" alt="">
+    </div>
+
+    <!-- تأثير الأضواء -->
+    <div class="lights-effect"></div>
+
+    <!-- الصفحة الرئيسية -->
+    <div class="main-page" id="mainPage">
+        <div class="cover-card">
+            <div class="corner tr"></div>
+            <div class="corner tl"></div>
+            <div class="corner br"></div>
+            <div class="corner bl"></div>
+
+            <h1 class="bismillah">بسم الله الرحمن الرحيم</h1>
+
+            <div class="info-box">
+                <div class="info-label">اسم الطالب</div>
+                <div class="info-value">علي فضل</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">اسم المادة</div>
+                <div class="info-value">Cloud Computing</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">اسم الأستاذ</div>
+                <div class="info-value">ميثاق</div>
+            </div>
+
+            <button class="enter-btn" onclick="showTrophies()">🏆 عرض البطولات</button>
+        </div>
+    </div>
+
+    <!-- صفحة البطولات -->
+    <div class="trophies-page" id="trophiesPage">
+        <div class="trophies-header">
+            <img src="https://www.aljazeera.net/wp-content/uploads/2017/02/64522494-444f-467d-9bb1-a7761ecb8016.jpeg?resize=686%2C513&quality=80" alt="ريال مدريد">
+            <h2 class="trophies-title">ريال مدريد</h2>
+            <p class="trophies-subtitle">ملك أوروبا</p>
+            <div class="trophies-count">15</div>
+            <p class="trophies-subtitle">بطولة في دوري أبطال أوروبا</p>
+        </div>
+
+        <div class="trophies-grid">
+            <div class="trophy-card">
+                <span class="trophy-number">01</span>
+                <div class="trophy-year">1956</div>
+                <div class="trophy-season">الموسم الأول</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 4 - 3 ريمس</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">02</span>
+                <div class="trophy-year">1957</div>
+                <div class="trophy-season">الموسم الثاني</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 2 - 0 فيورنتينا</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">03</span>
+                <div class="trophy-year">1958</div>
+                <div class="trophy-season">الموسم الثالث</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 3 - 2 ميلان (بعد التمديد)</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">04</span>
+                <div class="trophy-year">1959</div>
+                <div class="trophy-season">الموسم الرابع</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 2 - 0 ريمس</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">05</span>
+                <div class="trophy-year">1960</div>
+                <div class="trophy-season">الموسم الخامس</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 7 - 3 آينتراخت فرانكفورت</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">06</span>
+                <div class="trophy-year">1966</div>
+                <div class="trophy-season">الموسم السادس</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 2 - 1 بارتيزان بلغراد</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">07</span>
+                <div class="trophy-year">1998</div>
+                <div class="trophy-season">الموسم السابع</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 1 - 0 يوفنتوس</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">08</span>
+                <div class="trophy-year">2000</div>
+                <div class="trophy-season">الموسم الثامن</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 3 - 0 فالنسيا</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">09</span>
+                <div class="trophy-year">2002</div>
+                <div class="trophy-season">الموسم التاسع</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 2 - 1 باير ليفركوزن</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">10</span>
+                <div class="trophy-year">2014</div>
+                <div class="trophy-season">الموسم العاشر (العاشرة التاريخية)</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 4 - 1 أتلتيكو مدريد (بعد التمديد)</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">11</span>
+                <div class="trophy-year">2016</div>
+                <div class="trophy-season">الموسم الحادي عشر</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 1 - 1 أتلتيكو مدريد (5-3 ركلات الترجيح)</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">12</span>
+                <div class="trophy-year">2017</div>
+                <div class="trophy-season">الموسم الثاني عشر</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 4 - 1 يوفنتوس</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">13</span>
+                <div class="trophy-year">2018</div>
+                <div class="trophy-season">الموسم الثالث عشر</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 3 - 1 ليفربول</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">14</span>
+                <div class="trophy-year">2022</div>
+                <div class="trophy-season">الموسم الرابع عشر</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 1 - 0 ليفربول</div>
+            </div>
+
+            <div class="trophy-card">
+                <span class="trophy-number">15</span>
+                <div class="trophy-year">2024</div>
+                <div class="trophy-season">الموسم الخامس عشر</div>
+                <div class="trophy-final"><strong>النهائي:</strong> ريال مدريد 2 - 0 بوروسيا دورتموند</div>
+            </div>
+        </div>
+
+        <button class="back-btn" onclick="showMain()">↩ العودة للخلف</button>
+    </div>
+
+    <script>
+        function showTrophies() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('trophiesPage').classList.add('active');
+            document.body.style.background = 'linear-gradient(135deg, #0a1a3a 0%, #1a3a6a 50%, #0d1f3d 100%)';
+        }
+
+        function showMain() {
+            document.getElementById('trophiesPage').classList.remove('active');
+            document.getElementById('mainPage').style.display = 'flex';
+        }
+    </script>
+
+</body>
+</html>
